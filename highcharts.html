@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>我的月账单</title>
+		<script src="js/jquery.min.js"></script>
+		<script src="js/highcharts.js"></script>
+		<script src="js/exporting.js"></script>
+		<style>
+			#bill{
+				height:500px;
+				width:800px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="bill"></div>
+		<script>
+			$(function(){
+				$('#bill').highcharts({
+					title:{
+						text:"我们的月账单",
+						style:{
+							fontWeight:'bold',
+							fontSize:'14px'
+						}
+					},
+					subtitle:{
+						text:"2018年1月到2018年5月"
+					},
+					series:[{
+							name:"danta本月花费",
+							data:[2359.93,14335.09,4957.34,11838.19,4837.91],
+							color:'green'
+						},
+						{	
+							name:"puff本月花费",
+							data:[13051.30,7441.46,3860.23,8897.39,4984.01],
+							color:'red',
+						}
+					],
+					xAxis:{
+						title:{
+							text:'月份',
+							style:{
+								color:'blue'
+							}
+						},
+						 plotLines:[{
+					        color:'pink',            //线的颜色，定义为红色
+					        dashStyle:'longdashdot',//标示线的样式，默认是solid（实线），这里定义为长虚线
+					        value:1,                //定义在哪个值上显示标示线，这里是在x轴上刻度为3的值处垂直化一条线
+					        width:2                 //标示线的宽度，2px
+					    }],
+						categories:['一月','二月','三月','四月','五月'],
+						lineColor:'#0099ff'//基线颜色
+					},
+					yAxis:{
+						plotLines:[{
+					        dashStyle:'solid',     //默认值，这里定义为实线
+					        value:3,               //定义在那个值上显示标示线，这里是在x轴上刻度为3的值处垂直化一条线
+					        width:2                //标示线的宽度，2px
+					    }],
+						lineWidth: 1,
+ 						lineColor: '#0099ff',
+   						gridLineDashStyle: 'longdashdot',//线条样式
+						title:{
+							text:'金额(¥)',
+							style:{
+								color:'red'
+							}
+						},
+						labels:{
+							formatter(){
+								if(this.value<5000){
+									return '花费'+this.value+'一般'
+								}else if(this.value>=5000&&this.value<8000){
+									return '<span style="color:green">花费'+this.value+'稍高</span>'
+								}else{
+									return '<span style="color:red">花费'+this.value+'过高</span>'
+								}
+							}
+						}
+					},
+					credits:{
+//						enabled:false// 去掉版权信息,
+						text:'author:puff',
+						href:'http://www.baidu.com',
+						style:{
+							fontSize:'16px',
+							color:'#000',
+							fontWeight:'bolder',
+						},
+						position:{
+							align:'right',
+							y:-2
+						}
+					},
+//					tooltip:{// 提示框
+//						pointFormatter: function() {
+//						    return '<span style="color:yellow">\u25CF</span> '+
+//						           this.series.name+': <b>'+ this.y +'</b><br/>.'
+//						},
+//						backgroundColor:'rgba(0,0,0,.5)',
+//						borderColor:'yellow',
+//						borderRadius:5,
+//						borderWidth:2,
+//						shadow:true,
+//						animation:true,
+//						style:{
+//							color:'#fff'
+//						}
+//					},
+					tooltip: {
+					    shared: true,
+					    useHTML: true,
+					    headerFormat: '<small>{point.key}</small><table>',
+					    pointFormat: '<tr><td style="color: {series.color}">{series.name}: </td>' +
+					        '<td style="text-align: right"><b>{point.y}人民币</b></td></tr>',
+					    footerFormat: '</table>',
+					    valueDecimals: 2
+					},
+					legend:{//图例
+						backgroundColor:'#abcdef',
+						shadow:true//阴影效果
+//						title:{
+//							text:'puff'
+//						}
+					},
+					chart:{
+//						backgroundColor:'#ffcccc',// 设置图表区背景色
+						 backgroundColor: {
+					          linearGradient: [0, 0, 500, 500],
+					          stops: [
+					              [0, 'rgb(255, 255, 255)'],
+					              [1, 'rgb(240, 240, 255)']
+					          ]
+					      },
+						shadow:true,//是否设置阴影，需要设置背景色backgroundColor。
+						zoomType:'x',//拖动鼠标进行缩放，沿x轴或y轴进行缩放，可以设置为：'x','y','xy'
+//						defaultSeriesType:line//默认图表类型line, spline, area, areaspline, column, bar, pie , scatter
+					},
+					plotOptions: {// 可以设置每个点上显示该点的值
+					    line: {
+					        dataLabels: {
+					            enabled: true
+					        },
+					    }
+					}
+				})
+				
+			})
+		</script>
+	</body>
+</html>
